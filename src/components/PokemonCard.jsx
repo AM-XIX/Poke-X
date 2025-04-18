@@ -5,7 +5,6 @@ export default function PokemonCard({ name, url, selectedType, isFavorite, toggl
   const [pokemon, setPokemon] = useState(null);
   const [species, setSpecies] = useState(null);
   const [evolutionStage, setEvolutionStage] = useState("Base");
-  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     async function fetchPokemon() {
@@ -21,22 +20,22 @@ export default function PokemonCard({ name, url, selectedType, isFavorite, toggl
         if (speciesData.evolves_from_species) {
           setEvolutionStage("Evolution");
         }
-
-        if (selectedType === "all") {
-          setVisible(true);
-        } else {
-          const matches = data.types.some(t => t.type.name === selectedType);
-          setVisible(matches);
-        }
       } catch (error) {
         console.error("Error fetching Pokémon data:", error);
       }
     }
 
     fetchPokemon();
-  }, [url, selectedType]);
+  }, [url]);
 
-  if (!pokemon || !species || !visible) return null;
+  if (
+    !pokemon ||
+    !species ||
+    (selectedType !== "all" &&
+      !pokemon.types.some((t) => t.type.name === selectedType))
+  ) {
+    return null;
+  }
 
   const typeColor = {
     fire: "#F08030",
@@ -70,12 +69,10 @@ export default function PokemonCard({ name, url, selectedType, isFavorite, toggl
 
   return (
     <motion.div
-      layout
       className="pokemon-card"
       style={{ backgroundColor: cardColor }}
-      initial={{ opacity: 0, scale: 0.5, rotate: -10, y: 30 }}
-      animate={{ opacity: 1, scale: 1, rotate: 0, y: 0 }}
-      exit={{ opacity: 0, scale: 0.5, rotate: 10, y: -30 }}
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
     >
       <div className="card-content">
@@ -83,7 +80,6 @@ export default function PokemonCard({ name, url, selectedType, isFavorite, toggl
           <h2>{name.toUpperCase()}</h2>
           <button
             onClick={() => toggleFavorite(name)}
-            aria-label={isFavorite ? `Remove ${name} from favorites` : `Add ${name} to favorites`}
             style={{
               background: 'none',
               border: 'none',
@@ -91,10 +87,10 @@ export default function PokemonCard({ name, url, selectedType, isFavorite, toggl
               cursor: 'pointer',
               color: 'white',
             }}
+            aria-label="Favorite"
           >
             {isFavorite ? '★' : '☆'}
           </button>
-
         </div>
         <p style={{ fontWeight: "bold" }}>{evolutionStage} Pokémon</p>
         <div className="card-img-frame">

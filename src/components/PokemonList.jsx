@@ -6,7 +6,6 @@ export default function PokemonList({ pokemons, selectedType, favorites, toggleF
     <div className="pokemon-list" style={{ width: "100%" }}>
       <AnimatePresence mode="popLayout">
         {pokemons.map((pokemon) => {
-          const id = pokemon.url.split('/').filter(Boolean).pop();
           return (
             <PokemonCard
               key={pokemon.name}

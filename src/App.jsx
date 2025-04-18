@@ -19,7 +19,7 @@ import './App.css';
 // ==============================
 
 export default function App() {
-  // ========== States ==========
+  // ========= Global State =========
   const [pokemons, setPokemons] = useState([]);
   const [filteredPokemons, setFilteredPokemons] = useState([]);
   const [offset, setOffset] = useState(0);
@@ -28,7 +28,7 @@ export default function App() {
   const [selectedType, setSelectedType] = useState("all");
   const [sortOrder, setSortOrder] = useState("asc");
 
-  // Load favorites from localStorage
+  // Load favorites from localStorage at start
   const [favorites, setFavorites] = useState(() => {
     return JSON.parse(localStorage.getItem("favorites")) || [];
   });
@@ -36,7 +36,7 @@ export default function App() {
   const limit = 20;
 
   // ==============================
-  // ==== Fetch data on load =====
+  // ===== Initial Data Load =====
   // ==============================
 
   useEffect(() => {
@@ -44,13 +44,13 @@ export default function App() {
     fetchTypes();
   }, [offset]);
 
-  // Save favorites to localStorage
+  // Persist favorites in localStorage
   useEffect(() => {
     localStorage.setItem("favorites", JSON.stringify(favorites));
   }, [favorites]);
 
   // ==============================
-  // ======== Fetching API ========
+  // ===== API Fetch Methods =====
   // ==============================
 
   const fetchPokemons = (currentOffset) => {
@@ -77,19 +77,13 @@ export default function App() {
   };
 
   // ==============================
-  // ========== Filters ===========
+  // ===== Search & Sort Logic ===
   // ==============================
 
-  const applySearchFilter = (list, term, type, order) => {
+  const applySearchFilter = (list, term, _type, order) => {
     let filtered = list.filter(pokemon =>
       pokemon.name.toLowerCase().includes(term.toLowerCase())
     );
-
-    if (type !== "all") {
-      filtered = filtered.filter(pokemon =>
-        pokemons.find(p => p.name === pokemon.name)?.types?.some(t => t.type.name === type)
-      );
-    }
 
     filtered.sort((a, b) =>
       order === "asc"
@@ -101,7 +95,7 @@ export default function App() {
   };
 
   // ==============================
-  // ========= Handlers ===========
+  // ========= Handlers ==========
   // ==============================
 
   const handleSearch = (e) => {
@@ -135,7 +129,7 @@ export default function App() {
   };
 
   // ==============================
-  // ======= Render & Routes ======
+  // ========== Render ===========
   // ==============================
 
   return (
@@ -143,12 +137,15 @@ export default function App() {
       <Header />
       <main>
         <Routes>
-          {/* === Collection page (home) === */}
+
+          {/* ===== Home / Collection Page ===== */}
           <Route
             path="/"
             element={
               <>
                 <h1>Collection</h1>
+
+                {/* === Search, Type Filter, Sort === */}
                 <div className="search-bar-wrapper">
                   <input
                     type="text"
@@ -158,7 +155,6 @@ export default function App() {
                     className="search-bar"
                     aria-label="Search Pokémon by name"
                   />
-
                   <select
                     value={selectedType}
                     onChange={handleTypeChange}
@@ -172,7 +168,6 @@ export default function App() {
                       </option>
                     ))}
                   </select>
-
                   <select
                     value={sortOrder}
                     onChange={handleSortChange}
@@ -184,7 +179,7 @@ export default function App() {
                   </select>
                 </div>
 
-                {/* === Pokémon list display === */}
+                {/* === Pokémon Cards List === */}
                 {filteredPokemons.length > 0 ? (
                   <PokemonList
                     pokemons={filteredPokemons}
@@ -196,7 +191,7 @@ export default function App() {
                   <p style={{ textAlign: "center" }}>No Pokémon found.</p>
                 )}
 
-                {/* === Load more button === */}
+                {/* === Load More Button === */}
                 <div style={{ textAlign: 'center', margin: '30px' }}>
                   <button onClick={handleLoadMore} className="load-more">
                     Load More
@@ -206,11 +201,12 @@ export default function App() {
             }
           />
 
-          {/* === Game page === */}
+          {/* ===== Game Page ===== */}
           <Route path="/game" element={<Game />} />
 
-          {/* === Stats page === */}
+          {/* ===== Stats Page ===== */}
           <Route path="/stats" element={<Stats />} />
+
         </Routes>
       </main>
       <Footer />
