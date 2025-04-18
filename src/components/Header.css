@@ -1,0 +1,162 @@
+/* ============================== */
+/* ======= Header Styling ======= */
+/* ============================== */
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 20px;
+  background-color: var(--card-gold);
+  position: relative;
+  z-index: 10;
+}
+
+.logo-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 20px;
+  font-family: var(--text-font);
+  z-index: 11;
+}
+
+.nav-menu a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+.nav-menu a.active {
+  text-decoration: underline;
+}
+
+.mobile-menu-toggle {
+  display: none;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+
+/* ========================================= */
+/* ======= Responsive Adjustments (768px) == */
+/* ========================================= */
+
+@media screen and (max-width: 768px) {
+  /* Pokémon card list layout */
+  .pokemon-list {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    gap: 20px;
+  }
+
+  /* Search bar and filters layout */
+  .search-bar-wrapper {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .search-bar,
+  .type-filter {
+    width: 90%;
+    max-width: 320px;
+  }
+
+  /* Pokémon card size and spacing */
+  .pokemon-card {
+    width: 95%;
+    max-width: 340px;
+    font-size: 0.95rem;
+    padding: 8px;
+  }
+
+  .pokemon-card h2 {
+    font-size: 1.3rem;
+  }
+
+  .card-img-frame {
+    height: 120px;
+  }
+
+  .pokemon-card img {
+    width: 100px;
+  }
+
+  /* Load more button */
+  .load-more {
+    width: 90%;
+    max-width: 280px;
+  }
+}
+
+
+/* ========================================= */
+/* ======= Responsive Adjustments (600px) == */
+/* ========================================= */
+
+@media screen and (max-width: 600px) {
+  /* Pokémon card list layout */
+  .pokemon-list {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 10px;
+  }
+
+  /* Compact Pokémon card */
+  .pokemon-card {
+    width: 100%;
+    max-width: 300px;
+    box-sizing: border-box;
+    padding: 6px;
+    border-width: 10px;
+    font-size: 0.85rem;
+  }
+
+  .pokemon-card h2 {
+    font-size: 1.1rem;
+  }
+
+  .card-img-frame {
+    height: 100px;
+    border-width: 3px;
+  }
+
+  .pokemon-card img {
+    width: 80px;
+    height: auto;
+  }
+
+  .card-content p {
+    margin: 4px 0;
+  }
+
+  /* Search bar and filters */
+  .search-bar-wrapper {
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .search-bar,
+  .type-filter {
+    width: 100%;
+    max-width: 280px;
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  /* Load more button */
+  .load-more {
+    width: 100%;
+    max-width: 250px;
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+}
