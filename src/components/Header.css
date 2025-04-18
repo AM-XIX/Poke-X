@@ -48,115 +48,31 @@
 /* ========================================= */
 
 @media screen and (max-width: 768px) {
-  /* Pokémon card list layout */
-  .pokemon-list {
+  /* Show burger icon */
+  .mobile-menu-toggle {
+    display: block;
+  }
+
+  /* Hide menu by default */
+  .nav-menu {
+    display: none;
     flex-direction: column;
-    align-items: center;
-    padding: 10px;
-    gap: 20px;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background-color: var(--card-gold);
+    padding: 10px 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    width: fit-content;
   }
 
-  /* Search bar and filters layout */
-  .search-bar-wrapper {
-    flex-direction: column;
-    gap: 12px;
+  /* Show menu when open */
+  .nav-menu.open {
+    display: flex;
   }
 
-  .search-bar,
-  .type-filter {
-    width: 90%;
-    max-width: 320px;
-  }
-
-  /* Pokémon card size and spacing */
-  .pokemon-card {
-    width: 95%;
-    max-width: 340px;
-    font-size: 0.95rem;
-    padding: 8px;
-  }
-
-  .pokemon-card h2 {
-    font-size: 1.3rem;
-  }
-
-  .card-img-frame {
-    height: 120px;
-  }
-
-  .pokemon-card img {
-    width: 100px;
-  }
-
-  /* Load more button */
-  .load-more {
-    width: 90%;
-    max-width: 280px;
-  }
-}
-
-
-/* ========================================= */
-/* ======= Responsive Adjustments (600px) == */
-/* ========================================= */
-
-@media screen and (max-width: 600px) {
-  /* Pokémon card list layout */
-  .pokemon-list {
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-    padding: 10px;
-  }
-
-  /* Compact Pokémon card */
-  .pokemon-card {
-    width: 100%;
-    max-width: 300px;
-    box-sizing: border-box;
-    padding: 6px;
-    border-width: 10px;
-    font-size: 0.85rem;
-  }
-
-  .pokemon-card h2 {
-    font-size: 1.1rem;
-  }
-
-  .card-img-frame {
-    height: 100px;
-    border-width: 3px;
-  }
-
-  .pokemon-card img {
-    width: 80px;
-    height: auto;
-  }
-
-  .card-content p {
-    margin: 4px 0;
-  }
-
-  /* Search bar and filters */
-  .search-bar-wrapper {
-    flex-direction: column;
-    gap: 10px;
-    padding: 10px;
-  }
-
-  .search-bar,
-  .type-filter {
-    width: 100%;
-    max-width: 280px;
-    font-size: 0.9rem;
-    padding: 8px;
-  }
-
-  /* Load more button */
-  .load-more {
-    width: 100%;
-    max-width: 250px;
-    font-size: 0.9rem;
-    padding: 10px;
+  .nav-menu a {
+    padding: 8px 0;
   }
 }
